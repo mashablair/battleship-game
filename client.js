@@ -3,6 +3,7 @@
 
 // We need some way to generate a random loc1, loc3, loc3
 // They need to be consecutive and 0-6
+// Math.random() picks the random # from 0 and 1 (e.g. 0.574) and Math.floor rounds this # down after it was *5.
 var randomLoc = Math.floor(Math.random() * 5); //this picks a random number from 0-4.  Because we only have 7 slots in our game.
 var location1 = randomLoc;
 var location2 = location1+1;
@@ -36,7 +37,8 @@ while (isSunk === false) {
 }
 
 //display
-var stats = "You took " + numberOfGuesses + " guesses to sink my battleship, " + "which means your shooting accuracy was " + (3/numberOfGuesses);
+var stats = "You took " + numberOfGuesses + " guesses to sink my battleship, " +
+"which means your shooting accuracy was " + (3/numberOfGuesses);
 
 alert(stats);
 
