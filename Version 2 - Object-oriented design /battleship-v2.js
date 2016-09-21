@@ -65,6 +65,12 @@ var model = {
                 view.displayHit(guess); // places 'ship.png' on the board
                 view.displayMessage('You hit my ship!'); // updates View
 
+                // use this.isSunk() here:
+                if (this.isSunk(ship)) {
+                    view.displayMessage('You sank my battleship!!!');
+                    this.shipsSunk++; // updates # of sunk ships in Model
+                }
+
                 return true;
             } else { // if guess NOT found in locations array:
                 console.log('MISSED!');
@@ -76,13 +82,23 @@ var model = {
         }
     },
 
-    // isSunk: function() {
-
-    // }
+    // checks if the ship been hit 3x:
+    isSunk: function(ship) {
+        for (var i=0; i<this.numShips; i++) {
+            if (ship.hits[i] !== 'hit') { // is one slot is empty
+                return false;  // we don't have a hit yet!
+            }
+        }
+        return true; // otherwise, all spots='hit' and this ship is sunk!
+    } // use this method in this.fire() above
 };
 
 model.fire('31'); // should be 'hit'
-model.fire('00'); // should be 'miss'
+console.log(model.shipsSunk);
+model.fire('41'); // should be 'hit'
+console.log(model.shipsSunk);
+model.fire('51'); // 3rd hit
+console.log(model.shipsSunk); // should be 1 now
 
 
 
