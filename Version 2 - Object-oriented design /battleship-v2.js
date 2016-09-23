@@ -30,10 +30,7 @@ var view = {
 
 };
 
-// testing View:
-view.displayMessage('Woa, look at this grid!');
-view.displayMiss('00'); // 'A0'
-view.displayHit('34'); // 'D4'
+
 
 
 // ------MODEL------
@@ -44,10 +41,6 @@ var model = {
     shipsSunk: 0, // start w/ 0, then dynamically updated by fire() method
     shipLength: 3, // 3 cells (horizontally or vertically)
 
-    // ships locations and hits HARDCODED now for testing purposes:
-    ships: [{ locations: ['31', '41', '51'], hits: ['', '', ''] },
-            { locations: ['14', '24', '34'], hits: ['', 'hit', ''] },
-            { locations: ['00', '01', '02'], hits: ['hit', '', ''] },],
 
     // ******methods:
 
@@ -93,27 +86,7 @@ var model = {
     } // use this method in this.fire() above
 };
 
-model.fire('31'); // should be 'hit'
-console.log(model.shipsSunk);
-model.fire('41'); // should be 'hit'
-console.log(model.shipsSunk);
-model.fire('51'); // 3rd hit
-console.log(model.shipsSunk); // should be 1 now
 
-// some more testing
-// model.fire("53"); // miss
-
-// model.fire("31"); // hit
-// model.fire("41"); // hit
-// model.fire("51"); // hit
-
-// model.fire("34"); // hit
-// model.fire("24"); // hit
-// model.fire("14"); // hit
-
-// model.fire("00"); // hit
-// model.fire("01"); // hit
-// model.fire("02"); // hit
 
 
 
