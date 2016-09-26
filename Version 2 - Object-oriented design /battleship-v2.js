@@ -184,6 +184,74 @@ var controller = {
 };
 
 
+// helper function to be used by controller.processGuess()
+function parseGuess(guess) {
+
+    // helper array
+    var alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
+
+    // checks if guess is valid
+    if (guess === null || guess.length !== 2) {
+        alert('Oops, please enter a VALID guess: a letter and a number on the board!');
+    } else {
+        firstChar = guess.chartAt(0); // grabs 1st character of guess
+        var row = alphabet.indexOf(firstChar); // gets a number (0-6) that corresponds to the letter
+        var column = guess.chartAt(1); // grabs 2nd char of guess
+
+        // checks if guess is a number:
+        if (isNaN(row) || isNaN(column)) {
+            alert("Oops! That's NOT on the board!");
+        } else if ( row<0 || row>= model.boardSize || column <0 || column >= model.boardSize ) {
+            alert("Ooops! That's OFF the board!");
+            // we're NOT using strict comparison operators b/c we need to convert string into number!
+        } else {
+            return row + column; // returns guess as 1 string
+        }
+    }
+    return null; // if we got here, something failed one of the tests
+}
+
+
+// starts the game by handling 'Fire!' button: user's guess to Controller
+function init() {
+    var fireButton = document.getElementById('fireButton');
+    // adds click event handler to 'Fire!' button
+    fireButton.onclick = handleFireButton; // helper function defined below
+
+    // enables clicking 'Return' key to submit user's input, instead of 'Fire!' button
+    var guessInput = document.getElementById('guessInput'); // grabs input window
+    guessInput.onkeypress = handleKeyPress; // helper function defined below
+
+    // let's start the game!
+    model.generateShipLocations(); // it'll happen right when we load the game, before we start playing
+}
+
+// helper handler function for init() when user clicks 'Fire!' button
+function handleFireButton() {
+    // gets value from the form
+    var guessInput = document.getElementById('guessInput');
+    var guess = guessInput.value.toUpperCase(); // gets input and makes uppercase
+
+    controller.processGuess(guess);
+
+    guessInput.value = ''; // clears the form
+}
+
+// helper handler function for init() when user presses 'Enter'
+function handleKeyPress(e) { // 'e' is event object and has info which key was pressed
+    var fireButton = document.getElementById('fireButton');
+    if (e.keyCode === 13) {
+        // if true, call fireButton click
+        fireButton.click(); // tricks as if 'Fire!' was actually clicked!
+        // returns 'false' so the form doesn't try to submit itself
+        return false;
+    }
+}
+
+// brower will run init() when page is fully loaded
+window.onload = init;
+
+
 
 
 
