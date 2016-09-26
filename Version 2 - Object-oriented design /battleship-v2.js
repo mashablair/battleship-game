@@ -194,9 +194,9 @@ function parseGuess(guess) {
     if (guess === null || guess.length !== 2) {
         alert('Oops, please enter a VALID guess: a letter and a number on the board!');
     } else {
-        firstChar = guess.chartAt(0); // grabs 1st character of guess
+        firstChar = guess.charAt(0); // grabs 1st character of guess
         var row = alphabet.indexOf(firstChar); // gets a number (0-6) that corresponds to the letter
-        var column = guess.chartAt(1); // grabs 2nd char of guess
+        var column = guess.charAt(1); // grabs 2nd char of guess
 
         // checks if guess is a number:
         if (isNaN(row) || isNaN(column)) {

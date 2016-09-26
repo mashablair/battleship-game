@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chapter 8. Battleship Game!</title>
+    <!-- we will style our game here because it's very simple -->
+    <style>
+        body {
+            background-color: black;
+        }
+
+        #board {
+            /* 'relative' position -- element at its normal location in the flow of the page */
+            position: relative;
+            width: 1024px;
+            height: 863px;
+            margin: auto;
+            background: url("board.jpg") no-repeat;
+        }
+
+        #messageArea {
+            /* positions the element based on the position of the parent div */
+            position: absolute;
+            /* the top and left properties are used to specify the number of pixels to offset a positioned element from its default position*/
+            top: 0px;
+            left: 0px;
+            color: rgb(83, 175, 19);
+            font-size: 2.5em;
+        }
+
+        table {
+            position: absolute;
+            /*this will align the table w/ the image's grid */
+            left: 173px;
+            top: 98px;
+            border-spacing: 0px;
+        }
+
+        td {
+            /*this matches the size of the grid*/
+            width: 94px;
+            height: 94px;
+        }
+
+        form {
+            position: absolute;
+            bottom: 0px;
+            right: 0px;
+            padding: 15px;
+            background-color: rgb(83, 175, 19);
+            font-size: 1.5em;
+        }
+
+        form input {
+            background-color: rgb(152, 207, 113);
+            border-color: rgb(83, 175, 19);
+            font-size: 1em;
+        }
+
+        .hit {
+            background: url('ship.png') no-repeat center center;
+        }
+        .miss {
+            background: url('miss.png') no-repeat center center;
+        }
+
+    </style>
+</head>
+<body>
+
+<div id="board">
+
+<!-- message area to display messages from code -->
+<div id="messageArea">Welcome to the Battleship Game!</div>
+
+<!-- table goes over the background image, fitting the grid perfectly.
+
+id's: 1st # of id is grid's vertical letters A-G (to be replaced by 0-6 in code), 2nd # is grid's horizontal numbers 0-6.
+
+We created classes .hit and .miss to place 'miss.png' or 'ship.png' as CSS background in the guessed cell. -->
+<table>
+    <tr>
+        <td id="00"></td>
+        <td id="01"></td>
+        <td id="02"></td>
+        <td id="03"></td>
+        <td id="04"></td>
+        <td id="05"></td>
+        <td id="06"></td>
+    </tr>
+    <tr>
+        <td id="10"></td>
+        <td id="11"></td>
+        <td id="12"></td>
+        <td id="13"></td>
+        <td id="14"></td>
+        <td id="15"></td>
+        <td id="16"></td>
+    </tr>
+    <tr>
+        <td id="20"></td>
+        <td id="21"></td>
+        <td id="22"></td>
+        <td id="23"></td>
+        <td id="24"></td>
+        <td id="25"></td>
+        <td id="26"></td>
+    </tr>
+    <tr>
+        <td id="30"></td>
+        <td id="31"></td>
+        <td id="32"></td>
+        <td id="33"></td>
+        <td id="34"></td>
+        <td id="35"></td>
+        <td id="36"></td>
+    </tr>
+    <tr>
+        <td id="40"></td>
+        <td id="41"></td>
+        <td id="42"></td>
+        <td id="43"></td>
+        <td id="44"></td>
+        <td id="45"></td>
+        <td id="46"></td>
+    </tr>
+    <tr>
+        <td id="50"></td>
+        <td id="51"></td>
+        <td id="52"></td>
+        <td id="53"></td>
+        <td id="54"></td>
+        <td id="55"></td>
+        <td id="56"></td>
+    </tr>
+    <tr>
+        <td id="60"></td>
+        <td id="61"></td>
+        <td id="62"></td>
+        <td id="63"></td>
+        <td id="64"></td>
+        <td id="65"></td>
+        <td id="66"></td>
+    </tr>
+</table>
+
+<!-- form has 2 inputs: 1 for the guess and 1 button:  -->
+<form>
+    <input type="text" id="guessInput" placeholder="A0">
+    <input type="button" id="fireButton" value="Fire!">
+</form>
+
+</div>
+
+<script src="battleship-v2.js"></script>
+
+</body>
+</html>
