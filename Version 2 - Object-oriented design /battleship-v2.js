@@ -41,8 +41,74 @@ var model = {
     shipsSunk: 0, // start w/ 0, then dynamically updated by fire() method
     shipLength: 3, // 3 cells (horizontally or vertically)
 
+    // ship locations dynamic:
+    ships: [{ locations: [0, 0, 0], hits: ['', '', ''] },
+            { locations: [0, 0, 0], hits: ['', '', ''] },
+            { locations: [0, 0, 0], hits: ['', '', ''] },],
 
     // ******methods:
+    // ships generator plan:
+    // 1. loop for the number of ships we want to create
+    // 2. generate a random direction (vertical or horizontal)
+    // 3. generate a random location
+    // 4. test to see if the new locations collide
+    // 5. add locations to the ships array
+
+    // master method: creates ships [] by using methods below:
+    generateShipLocations: function() {
+        var locations; // this will become []
+        for (var i=0; i<this.numShips; i++) {
+            do {
+                locations = this.generateShip(); // calls method below
+            } while (this.collision(locations)); // calls method below
+            // if collision test passed, location is assigned to model.ships.locations []
+            this.ships[i].locations = locations;
+        }
+    },
+
+    // this method creates a single ship located randomly on the board:
+    generateShip: function() {
+        // horizontal or vertical: generate random # from 0 to 1:
+        var direction = Math.floor(Math.random() *2);
+        var row, col;
+
+        if (direction === 1) {
+            // generate horizontal ship's 1st location:
+            row = Math.floor(Math.random() * this.boardSize);
+            col = Math.floor(Math.random() * (this.boardSize - this.shipLength)); // to avoid ship off board
+        } else {
+            // generate vertical ship's 1st location:
+            row = Math.floor(Math.random() * (this.boardSize - this.shipLength));
+            col = Math.floor(Math.random() * this.boardSize);
+        }
+
+        var newShipLocations = []; // add locations 1 by 1
+        for (var i=0; i<this.shipLength; i++) {
+            if (direction === 1) {
+                // add location for new horizontal ship
+                newShipLocations.push(row + '' + (col+1)); // we need concatenate strings, not add ##
+            } else {
+                // add location for new vertical ship
+                newShipLocations.push((row+1) + '' + col);
+            }
+        }
+        return newShipLocations; // returns array for generateShip()
+    },
+
+    // check if the ships overlap on the board
+    collision: function(locations) { // 'locations' is an []
+        for (var i=0; i<this.numShips; i++) {
+            var ship = model.ships[i];
+            // check all locations in new ship's array
+            for (var j=0; j<locations.length; j++) {
+                if (ship.locations.indexOf(locations[j]) >= 0) { // if not there, --> '-1'
+                    return true; // we found collision!
+                }
+            }
+        }
+        return false; // found no collisions (no match)
+    },
+
 
     // fires and figures 'hit' or 'miss', then updates View; uses isSunk()
     fire: function(guess) {
