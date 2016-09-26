@@ -5,6 +5,8 @@
 
 // object-oriented design
 
+// ------VIEW-------
+
 var view = {
     // this method takes a string and displays it in message window
     displayMessage: function(msg) {
@@ -150,6 +152,35 @@ var model = {
         }
         return true; // otherwise, all spots='hit' and this ship is sunk!
     } // use this method in this.fire() above
+};
+
+
+// ----------CONTROLLER----------
+// gets user's guess, processes it, passes to Model
+// keeps track of current guesses and player's progress
+// updates Model with latest guess
+// determines if game is over
+
+var controller = {
+    // properties
+    guesses: 0,
+
+    // methods
+    // evaluates guess, processes it, gets it to Model
+    processGuess: function(guess) { // guess comes in 'A1' form
+        // evaluates guess for validity
+        var location = parseGuess(guess); // uses helper function defined below
+        if (location) {
+            // if location = string --> true, if null --> false
+            this.guesses++; // updates # of current guesses (doesn't penalize if wrong)
+            var hit = model.fire(location); // calls Model
+            // also checks if the game is over (all ships are sunk)
+            // if hit = true AND shipsSunk = numShips
+            if (hit && model.shipsSunk === model.numShips) {
+                view.displayMessage('You won! All my battleships are sunk in ' + this.guesses + ' guesses!');
+            }
+        }
+    }
 };
 
 
