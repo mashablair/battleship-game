@@ -12,20 +12,20 @@ var view = {
     displayMessage: function(msg) {
         // first, get html element by id:
         var messageArea = document.getElementById('messageArea');
-        // second, update the text of this element with msg:
-        messageArea.innerHTML = msg; // msg is the argument
+        // second, update text content to this element:
+        messageArea.innerHTML = msg; // content is the function argument
     },
 
     // this method displays 'miss' when user's input is wrong
     displayMiss: function(location) {
-        // adds class="miss" to the cell, this class is already discribed by css
-        var cell = document.getElementById(location); // e.g. location = '14'
+        // add class="miss" to the cell after getting user's guess for location:
+        var cell = document.getElementById(location);
         cell.setAttribute('class', 'miss');
     },
 
     // this method displays 'ship' when user's input is right
     displayHit: function(location) {
-        // adds class="miss" to the cell, this class is already discribed by css
+        // add class="hit" to the cell:
         var cell = document.getElementById(location);
         cell.setAttribute('class', 'hit');
     }
