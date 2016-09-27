@@ -47,7 +47,6 @@ var model = {
     ships: [{ locations: [0, 0, 0], hits: ['', '', ''] },
             { locations: [0, 0, 0], hits: ['', '', ''] },
             { locations: [0, 0, 0], hits: ['', '', ''] },],
-
     // ******methods:
     // ships generator plan:
     // 1. loop for the number of ships we want to create
