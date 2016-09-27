@@ -44,9 +44,11 @@ var model = {
     shipLength: 3, // 3 cells (horizontally or vertically)
 
     // ship locations dynamic:
-    ships: [{ locations: [0, 0, 0], hits: ['', '', ''] },
+    ships: [
             { locations: [0, 0, 0], hits: ['', '', ''] },
-            { locations: [0, 0, 0], hits: ['', '', ''] },],
+            { locations: [0, 0, 0], hits: ['', '', ''] },
+            { locations: [0, 0, 0], hits: ['', '', ''] }
+    ],
     // ******methods:
     // ships generator plan:
     // 1. loop for the number of ships we want to create
@@ -65,6 +67,8 @@ var model = {
             // if collision test passed, location is assigned to model.ships.locations []
             this.ships[i].locations = locations;
         }
+        console.log("Ships array: "); // this shows generated ships locations (for cheating)
+        console.log(this.ships);
     },
 
     // this method creates a single ship located randomly on the board:
@@ -76,10 +80,10 @@ var model = {
         if (direction === 1) {
             // generate horizontal ship's 1st location:
             row = Math.floor(Math.random() * this.boardSize);
-            col = Math.floor(Math.random() * (this.boardSize - this.shipLength)); // to avoid ship off board
+            col = Math.floor(Math.random() * (this.boardSize - this.shipLength + 1)); // to avoid ship off board
         } else {
             // generate vertical ship's 1st location:
-            row = Math.floor(Math.random() * (this.boardSize - this.shipLength));
+            row = Math.floor(Math.random() * (this.boardSize - this.shipLength +1));
             col = Math.floor(Math.random() * this.boardSize);
         }
 
@@ -87,10 +91,10 @@ var model = {
         for (var i=0; i<this.shipLength; i++) {
             if (direction === 1) {
                 // add location for new horizontal ship
-                newShipLocations.push(row + '' + (col+1)); // we need concatenate strings, not add ##
+                newShipLocations.push(row + '' + (col+i)); // we need concatenate strings, not add ##
             } else {
                 // add location for new vertical ship
-                newShipLocations.push((row+1) + '' + col);
+                newShipLocations.push((row+i) + '' + col);
             }
         }
         return newShipLocations; // returns array for generateShip()
